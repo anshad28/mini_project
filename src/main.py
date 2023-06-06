@@ -145,6 +145,7 @@ def infer(model: Model, fn_img: Path) -> None:
     recognized, probability = model.infer_batch(batch, True)
     print(f'Recognized: "{recognized[0]}"')
     print(f'Probability: {probability[0]}')
+    return recognized[0]
 
 
 def parse_args() -> argparse.Namespace:
@@ -167,7 +168,7 @@ def parse_args() -> argparse.Namespace:
 def main():
     """Main function."""
 
-    # parse arguments and set CTC decoder
+    # parse arguments and set CTC decoder    
     args = parse_args()
     decoder_mapping = {'bestpath': DecoderType.BestPath,
                        'beamsearch': DecoderType.BeamSearch,
@@ -176,6 +177,7 @@ def main():
 
     # train the model
     if args.mode == 'train':
+        print('1')
         loader = DataLoaderIAM(args.data_dir, args.batch_size, fast=args.fast)
 
         # when in line mode, take care to have a whitespace in the char list
@@ -195,14 +197,17 @@ def main():
 
     # evaluate it on the validation set
     elif args.mode == 'validate':
+        print('4')
         loader = DataLoaderIAM(args.data_dir, args.batch_size, fast=args.fast)
         model = Model(char_list_from_file(), decoder_type, must_restore=True)
         validate(model, loader, args.line_mode)
 
     # infer text on test image
     elif args.mode == 'infer':
+        print('3')
         model = Model(char_list_from_file(), decoder_type, must_restore=True, dump=args.dump)
         infer(model, args.img_file)
+        
 
 
 if __name__ == '__main__':
