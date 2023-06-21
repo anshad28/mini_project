@@ -11,9 +11,14 @@ from model import Model, DecoderType
 from preprocessor import Preprocessor
 
 
+# class FilePaths:
+#     """Filenames and paths to data."""
+#     fn_char_list = '../model/charList.txt'
+#     fn_summary = '../model/summary.json'
+#     fn_corpus = '../data/corpus.txt'
 class FilePaths:
     """Filenames and paths to data."""
-    fn_char_list = '../model/charList.txt'
+    fn_char_list = 'C:\\Users\\anshad c v\\Desktop\\anshad\\SimpleHTR\\model\\charList.txt'
     fn_summary = '../model/summary.json'
     fn_corpus = '../data/corpus.txt'
 
@@ -163,9 +168,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--dump', help='Dump output of NN to CSV file(s).', action='store_true')
 
     return parser.parse_args()
-
-
-def main():
+ 
+def main():    
     """Main function."""
 
     # parse arguments and set CTC decoder    
@@ -184,7 +188,7 @@ def main():
         char_list = loader.char_list
         if args.line_mode and ' ' not in char_list:
             char_list = [' '] + char_list
-
+ 
         # save characters and words
         with open(FilePaths.fn_char_list, 'w') as f:
             f.write(''.join(char_list))
@@ -210,5 +214,5 @@ def main():
         
 
 
-if __name__ == '__main__':
-    main()
+    if __name__ == '__main__':
+            main()

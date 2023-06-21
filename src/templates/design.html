@@ -7,22 +7,31 @@
         <title>HANDWRITTEN TEXT RECOGNITION</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="index.css"> -->
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='index.css') }}">
+        <!-- <link rel="stylesheet" href="design.css"> -->
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='design.css') }}">
     </head>
     <body>
         <header>
             <p style="text-align: center;">
                <strong>HANDWRITTEN TEXT RECOGNITION</strong> 
             </p>
+            <script>
+                src="{{ url_for('static',filename='script.js') }}"
+                function speak() {
+                    var text = document.getElementById("text").value;
+                    var speech = new SpeechSynthesisUtterance();
+                    speech.text = text;
+                    window.speechSynthesis.speak(speech);
+                }
+            </script>
         </header>
         <div class="container">
             <img class="pict" src="{{ url_for('static',filename='handwritten.jpg') }}">       
         
-            <p class="text">The text is: {{res}}</p>
-            
-       
+            <p class="text">The text is: <textarea id="text">{{res}}</textarea></p>  
+            <button onclick="speak()">convert to speech</button>         
         </div>
+       
         <img class="pic" src="{{url_for('static', filename=image_path)}}" />
         
         <div class="cont">   
@@ -31,5 +40,8 @@
                 <input class="sub" type='submit'/>
             </form>
         </div>
+        
+
+        
     </body>
 </html>
